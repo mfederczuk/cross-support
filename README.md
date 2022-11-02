@@ -5,8 +5,10 @@
 
 # C & C++ Cross-Support Headers #
 
-[version_shield]: https://img.shields.io/badge/version-N%2FA_(in_development)-important.svg
-![version: N/A (in development)][version_shield]
+[version_shield]: https://img.shields.io/badge/version-1.0.0-informational.svg
+[release_page]: https://github.com/mfederczuk/cross-support/releases/tag/v1.0.0 "Release v1.0.0"
+[![version: 1.0.0][version_shield]][release_page]
+[![Changelog](https://img.shields.io/badge/-Changelog-informational.svg)](CHANGELOG.md "Changelog")
 
 ## About ##
 
