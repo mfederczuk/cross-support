@@ -39,6 +39,8 @@ This is important for things like [feature test macros], which need to be define
 
 For convenience, you can create a `cross_support.h` header in your project including both headers.
 
+Which macros are defined, and how to use them, is documented in [`Macros.md`](Macros.md).
+
 [feature test macros]: <https://linux.die.net/man/7/feature_test_macros> "feature_test_macros(7): feature test macros - Linux man page"
 
 ## Download ##
