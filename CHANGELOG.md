@@ -21,6 +21,7 @@ and this project adheres to [**Semantic Versioning v2.0.0**](https://semver.org/
   C23's `[[noreturn]]` attribute
 * Macro `cross_support_constexpr_func` is the same as `cross_support_constexpr` (now deprecated) — the only thing
   different is the name. The new name is more clear what it's used for
+* `cross_support_if_likely` and `cross_support_if_unlikely` are now also available in the `cross_support_core.h` header
 
 ### Deprecated ###
 

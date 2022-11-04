@@ -137,28 +137,16 @@
 
 // === branch optimization ========================================================================================== //
 
-#if CROSS_SUPPORT_CXX20
-	#define cross_support_if_likely(condition)    if(condition) [[likely]]
-	#define cross_support_if_unlikely(condition)  if(condition) [[unlikely]]
-#elif (CROSS_SUPPORT_GCC_LEAST(3,0) || CROSS_SUPPORT_CLANG)
-	#if CROSS_SUPPORT_CXX
-		#define cross_support_if_likely(condition)    if(__builtin_expect(static_cast<long>(static_cast<bool>(condition)), static_cast<long>(true)))
-		#define cross_support_if_unlikely(condition)  if(__builtin_expect(static_cast<long>(static_cast<bool>(condition)), static_cast<long>(false)))
-	#elif CROSS_SUPPORT_C23
-		#define cross_support_if_likely(condition)    if(__builtin_expect((long)(bool)(condition), (long)(true)))
-		#define cross_support_if_unlikely(condition)  if(__builtin_expect((long)(bool)(condition), (long)(false)))
-	#elif CROSS_SUPPORT_C99
-		#include <stdbool.h>
+#if (defined(cross_support_if_likely) && !CROSS_SUPPORT_CXX20 && (CROSS_SUPPORT_GCC_LEAST(3,0) || CROSS_SUPPORT_CLANG))
+	#include <stdbool.h>
+	#undef  cross_support_if_likely
+	#define cross_support_if_likely(condition)    if(__builtin_expect((long)(bool)(condition), (long)(true)))
+#endif
 
-		#define cross_support_if_likely(condition)    if(__builtin_expect((long)(bool)(condition), (long)(true)))
-		#define cross_support_if_unlikely(condition)  if(__builtin_expect((long)(bool)(condition), (long)(false)))
-	#else
-		#define cross_support_if_likely(condition)    if(__builtin_expect((long)!!(condition), 1L))
-		#define cross_support_if_unlikely(condition)  if(__builtin_expect((long)!!(condition), 0L))
-	#endif
-#else
-	#define cross_support_if_likely(condition)    if(condition)
-	#define cross_support_if_unlikely(condition)  if(condition)
+#if (defined(cross_support_if_unlikely) && !CROSS_SUPPORT_CXX20 && (CROSS_SUPPORT_GCC_LEAST(3,0) || CROSS_SUPPORT_CLANG))
+	#include <stdbool.h>
+	#undef  cross_support_if_unlikely
+	#define cross_support_if_unlikely(condition)  if(__builtin_expect((long)(bool)(condition), (long)(false)))
 #endif
 
 #endif /* CROSS_SUPPORT_MISC_H */

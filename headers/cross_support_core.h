@@ -160,4 +160,28 @@
 	#define cross_support_attr_cold
 #endif
 
+// === branch optimization ========================================================================================== //
+
+#if CROSS_SUPPORT_CXX20
+	#define cross_support_if_likely(condition)    if(condition) [[likely]]
+	#define cross_support_if_unlikely(condition)  if(condition) [[unlikely]]
+#elif (CROSS_SUPPORT_GCC_LEAST(3,0) || CROSS_SUPPORT_CLANG)
+	#if CROSS_SUPPORT_CXX
+		#define cross_support_if_likely(condition)    if(__builtin_expect(static_cast<long>(static_cast<bool>(condition)), static_cast<long>(true)))
+		#define cross_support_if_unlikely(condition)  if(__builtin_expect(static_cast<long>(static_cast<bool>(condition)), static_cast<long>(false)))
+	#elif CROSS_SUPPORT_C23
+		#define cross_support_if_likely(condition)    if(__builtin_expect((long)(bool)(condition), (long)(true)))
+		#define cross_support_if_unlikely(condition)  if(__builtin_expect((long)(bool)(condition), (long)(false)))
+	#elif CROSS_SUPPORT_C99
+		#define cross_support_if_likely(condition)    if(__builtin_expect((long)(_Bool)(condition), 1L))
+		#define cross_support_if_unlikely(condition)  if(__builtin_expect((long)(_Bool)(condition), 0L))
+	#else
+		#define cross_support_if_likely(condition)    if(__builtin_expect((long)!!(condition), 1L))
+		#define cross_support_if_unlikely(condition)  if(__builtin_expect((long)!!(condition), 0L))
+	#endif
+#else
+	#define cross_support_if_likely(condition)    if(condition)
+	#define cross_support_if_unlikely(condition)  if(condition)
+#endif
+
 #endif /* CROSS_SUPPORT_CORE_H */
