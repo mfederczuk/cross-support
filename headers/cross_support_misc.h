@@ -130,6 +130,9 @@
 	#if CROSS_SUPPORT_CXX
 		#define cross_support_if_likely(condition)    if(__builtin_expect(static_cast<long>(static_cast<bool>(condition)), static_cast<long>(true)))
 		#define cross_support_if_unlikely(condition)  if(__builtin_expect(static_cast<long>(static_cast<bool>(condition)), static_cast<long>(false)))
+	#elif CROSS_SUPPORT_C23
+		#define cross_support_if_likely(condition)    if(__builtin_expect((long)(bool)(condition), (long)(true)))
+		#define cross_support_if_unlikely(condition)  if(__builtin_expect((long)(bool)(condition), (long)(false)))
 	#elif CROSS_SUPPORT_C99
 		#include <stdbool.h>
 
