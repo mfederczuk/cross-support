@@ -89,7 +89,7 @@
 	 * Use this instead of `cross_support_attr_pure` unless the function takes a
 	 * pointer or reference.
 	 */
-	#define cross_support_attr_const  __attribute__((const))
+	#define cross_support_attr_const  __attribute__((__const__))
 #else
 	#define cross_support_attr_const
 #endif
@@ -99,27 +99,29 @@
 	 * Only use this instead of `cross_support_attr_const` when a function takes
 	 * a pointer or reference.
 	 */
-	#define cross_support_attr_pure  __attribute__((pure))
+	#define cross_support_attr_pure  __attribute__((__pure__))
 #else
 	#define cross_support_attr_pure
 #endif
 
 
-#if CROSS_SUPPORT_CXX11
-	#define cross_support_noreturn [[noreturn]]
+#if (CROSS_SUPPORT_CXX11 || CROSS_SUPPORT_C23)
+	#define cross_support_noreturn  [[noreturn]]
+#elif CROSS_SUPPORT_C11
+	#define cross_support_noreturn  _Noreturn
 #else
 	#define cross_support_noreturn
 #endif
 #if (CROSS_SUPPORT_GCC_LEAST(3,1) || CROSS_SUPPORT_CLANG)
-	#define cross_support_attr_noreturn  __attribute__((noreturn))
+	#define cross_support_attr_noreturn  __attribute__((__noreturn__))
 #else
 	#define cross_support_attr_noreturn
 #endif
 
 
 #if (CROSS_SUPPORT_GCC_LEAST(3,1) || CROSS_SUPPORT_CLANG)
-	#define cross_support_attr_always_inline  __attribute__((always_inline))
-	#define cross_support_attr_unused         __attribute__((unused))
+	#define cross_support_attr_always_inline  __attribute__((__always_inline__))
+	#define cross_support_attr_unused         __attribute__((__unused__))
 #else
 	#define cross_support_attr_always_inline
 	#define cross_support_attr_unused
@@ -127,20 +129,20 @@
 
 
 #if (CROSS_SUPPORT_CXX17 || CROSS_SUPPORT_C23)
-	#define cross_support_nodiscard [[nodiscard]]
+	#define cross_support_nodiscard  [[nodiscard]]
 #else
 	#define cross_support_nodiscard
 #endif
 #if (CROSS_SUPPORT_GCC_LEAST(3,4) || CROSS_SUPPORT_CLANG)
-	#define cross_support_attr_warn_unused_result  __attribute__((warn_unused_result))
+	#define cross_support_attr_warn_unused_result  __attribute__((__warn_unused_result__))
 #else
 	#define cross_support_attr_warn_unused_result
 #endif
 
 
 #if (CROSS_SUPPORT_GCC_LEAST(3,3) || CROSS_SUPPORT_CLANG)
-	#define cross_support_attr_nonnull(...)  __attribute__((nonnull(__VA_ARGS__)))
-	#define cross_support_attr_nonnull_all   __attribute__((nonnull))
+	#define cross_support_attr_nonnull(...)  __attribute__((__nonnull__(__VA_ARGS__)))
+	#define cross_support_attr_nonnull_all   __attribute__((__nonnull__))
 #else
 	#define cross_support_attr_nonnull(...)
 	#define cross_support_attr_nonnull_all
@@ -148,8 +150,8 @@
 
 
 #if (CROSS_SUPPORT_GCC_LEAST(4,3) || CROSS_SUPPORT_CLANG)
-	#define cross_support_attr_hot   __attribute__((hot))
-	#define cross_support_attr_cold  __attribute__((cold))
+	#define cross_support_attr_hot   __attribute__((__hot__))
+	#define cross_support_attr_cold  __attribute__((__cold__))
 #else
 	#define cross_support_attr_hot
 	#define cross_support_attr_cold
