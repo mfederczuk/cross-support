@@ -52,7 +52,7 @@
 #if (!(defined(__GLIBC__))       && !(defined(__GLIBC_MINOR__)) && \
      !(defined(__GNU_LIBRARY__)) && !(defined(__GNU_LIBRARY_MINOR__)))
 
-	#if __cplusplus
+	#if CROSS_SUPPORT_CXX
 		#include <climits>
 	#else
 		#include <limits.h>
@@ -111,7 +111,7 @@
 #elif CROSS_SUPPORT_MSVC
 	#define cross_support_unreachable()  __assume(0)
 #else
-	#if (__cplusplus + 0)
+	#if CROSS_SUPPORT_CXX
 		#include <cassert>
 	#else
 		#include <assert.h>
@@ -127,7 +127,7 @@
 	#define cross_support_if_likely(condition)    if(condition) [[likely]]
 	#define cross_support_if_unlikely(condition)  if(condition) [[unlikely]]
 #elif (CROSS_SUPPORT_GCC_LEAST(3,0) || CROSS_SUPPORT_CLANG)
-	#if (__cplusplus + 0)
+	#if CROSS_SUPPORT_CXX
 		#define cross_support_if_likely(condition)    if(__builtin_expect(static_cast<long>(static_cast<bool>(condition)), static_cast<long>(true)))
 		#define cross_support_if_unlikely(condition)  if(__builtin_expect(static_cast<long>(static_cast<bool>(condition)), static_cast<long>(false)))
 	#elif CROSS_SUPPORT_C99

@@ -37,6 +37,7 @@
 #define CROSS_SUPPORT_C18    ((__STDC_VERSION__ + 0) >= 201710L)
 #define CROSS_SUPPORT_C23    ((__STDC_VERSION__ + 0) >= 202300L) // unofficial
 
+#define CROSS_SUPPORT_CXX     (__cplusplus      + 0)
 #define CROSS_SUPPORT_CXX98  ((__cplusplus      + 0) >= 199711L)
 #define CROSS_SUPPORT_CXX11  ((__cplusplus      + 0) >= 201103L)
 #define CROSS_SUPPORT_CXX17  ((__cplusplus      + 0) >= 201703L)

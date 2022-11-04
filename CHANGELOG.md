@@ -15,6 +15,7 @@ and this project adheres to [**Semantic Versioning v2.0.0**](https://semver.org/
 
 ### Added ###
 
+* Macro `CROSS_SUPPORT_CXX` evaluates to a nonzero value if the current language is C++
 * The `cross_support_noreturn` macro now supports C11's `_Noreturn`/`noreturn` function specifier and
   C23's `[[noreturn]]` attribute
 
