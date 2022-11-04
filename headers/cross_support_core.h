@@ -105,7 +105,7 @@
 #endif
 
 
-#if CROSS_SUPPORT_CXX11
+#if (CROSS_SUPPORT_CXX11 || CROSS_SUPPORT_C23)
 	#define cross_support_noreturn  [[noreturn]]
 #elif CROSS_SUPPORT_C11
 	#define cross_support_noreturn  _Noreturn

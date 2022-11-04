@@ -15,7 +15,8 @@ and this project adheres to [**Semantic Versioning v2.0.0**](https://semver.org/
 
 ### Added ###
 
-* The `cross_support_noreturn` macro now supports C11's `_Noreturn`/`noreturn` function specifier
+* The `cross_support_noreturn` macro now supports C11's `_Noreturn`/`noreturn` function specifier and
+  C23's `[[noreturn]]` attribute
 
 ## [v1.0.0] - 2022-11-02 ##
 
