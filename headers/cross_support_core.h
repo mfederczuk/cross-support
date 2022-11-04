@@ -106,7 +106,7 @@
 
 
 #if CROSS_SUPPORT_CXX11
-	#define cross_support_noreturn [[noreturn]]
+	#define cross_support_noreturn  [[noreturn]]
 #else
 	#define cross_support_noreturn
 #endif
@@ -127,7 +127,7 @@
 
 
 #if (CROSS_SUPPORT_CXX17 || CROSS_SUPPORT_C23)
-	#define cross_support_nodiscard [[nodiscard]]
+	#define cross_support_nodiscard  [[nodiscard]]
 #else
 	#define cross_support_nodiscard
 #endif
