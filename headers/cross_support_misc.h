@@ -90,6 +90,20 @@
 		)                                                       \
 	)
 
+// === C/C++ compatibility ========================================================================================== //
+
+#if CROSS_SUPPORT_CXX11
+	#define cross_support_nullptr  nullptr
+#elif CROSS_SUPPORT_CXX
+	#include <cstddef>
+	#define cross_support_nullptr  NULL
+#elif CROSS_SUPPORT_C23
+	#define cross_support_nullptr  nullptr
+#else
+	#include <stddef.h>
+	#define cross_support_nullptr  NULL
+#endif
+
 // === attributes =================================================================================================== //
 
 #if (defined(cross_support_noreturn) && !CROSS_SUPPORT_CXX11 && !CROSS_SUPPORT_C23 && CROSS_SUPPORT_C11)
