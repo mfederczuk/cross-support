@@ -76,12 +76,16 @@
 #endif
 
 #if CROSS_SUPPORT_CXX17
-	#define cross_support_constexpr  constexpr
+	#define cross_support_constexpr_func  constexpr
 #elif CROSS_SUPPORT_C99
-	#define cross_support_constexpr  static inline
+	#define cross_support_constexpr_func  static inline
 #else
-	#define cross_support_constexpr  static
+	#define cross_support_constexpr_func  static
 #endif
+/**
+ * Deprecated. Use `cross_support_constexpr_func` instead.
+ */
+#define cross_support_constexpr  cross_support_constexpr_func
 
 // === attributes =================================================================================================== //
 

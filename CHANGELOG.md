@@ -19,6 +19,12 @@ and this project adheres to [**Semantic Versioning v2.0.0**](https://semver.org/
 * Macro `cross_support_nullptr` will either expand to `nullptr` or `NULL` and may include `<cstddef>` or `<stddef.h>`
 * The `cross_support_noreturn` macro now supports C11's `_Noreturn`/`noreturn` function specifier and
   C23's `[[noreturn]]` attribute
+* Macro `cross_support_constexpr_func` is the same as `cross_support_constexpr` (now deprecated) — the only thing
+  different is the name. The new name is more clear what it's used for
+
+### Deprecated ###
+
+* `cross_support_constexpr` is deprecated. As replacement use `cross_support_constexpr_func`
 
 ## [v1.0.0] - 2022-11-02 ##
 
