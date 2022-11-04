@@ -107,6 +107,8 @@
 
 #if CROSS_SUPPORT_CXX11
 	#define cross_support_noreturn  [[noreturn]]
+#elif CROSS_SUPPORT_C11
+	#define cross_support_noreturn  _Noreturn
 #else
 	#define cross_support_noreturn
 #endif
