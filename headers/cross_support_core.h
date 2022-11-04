@@ -87,8 +87,7 @@
 
 #if (CROSS_SUPPORT_GCC_LEAST(2,5) || CROSS_SUPPORT_CLANG)
 	/**
-	 * Use this instead of `cross_support_attr_pure` unless the function takes a
-	 * pointer or reference.
+	 * Use this instead of `cross_support_attr_pure` unless the function takes a pointer or reference.
 	 */
 	#define cross_support_attr_const  __attribute__((__const__))
 #else
@@ -97,8 +96,7 @@
 
 #if (CROSS_SUPPORT_GCC_LEAST(2,96) || CROSS_SUPPORT_CLANG)
 	/**
-	 * Only use this instead of `cross_support_attr_const` when a function takes
-	 * a pointer or reference.
+	 * Only use this instead of `cross_support_attr_const` when a function takes a pointer or reference.
 	 */
 	#define cross_support_attr_pure  __attribute__((__pure__))
 #else
