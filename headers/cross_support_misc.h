@@ -100,12 +100,12 @@
 
 // === UB optimization ============================================================================================== //
 
-#if CROSS_SUPPORT_C23
-	#include <stddef.h>
-	#define cross_support_unreachable()  unreachable()
-#elif CROSS_SUPPORT_CXX23
+#if CROSS_SUPPORT_CXX23
 	#include <utility>
 	#define cross_support_unreachable()  ::std::unreachable()
+#elif CROSS_SUPPORT_C23
+	#include <stddef.h>
+	#define cross_support_unreachable()  unreachable()
 #elif (CROSS_SUPPORT_GCC_LEAST(4,5) || CROSS_SUPPORT_CLANG)
 	#define cross_support_unreachable()  __builtin_unreachable()
 #elif CROSS_SUPPORT_MSVC
