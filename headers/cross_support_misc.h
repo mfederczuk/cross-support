@@ -52,7 +52,7 @@
 #if (!(defined(__GLIBC__))       && !(defined(__GLIBC_MINOR__)) && \
      !(defined(__GNU_LIBRARY__)) && !(defined(__GNU_LIBRARY_MINOR__)))
 
-	#if __cplusplus
+	#if CROSS_SUPPORT_CXX
 		#include <climits>
 	#else
 		#include <limits.h>
@@ -90,6 +90,20 @@
 		)                                                       \
 	)
 
+// === C/C++ compatibility ========================================================================================== //
+
+#if CROSS_SUPPORT_CXX11
+	#define cross_support_nullptr  nullptr
+#elif CROSS_SUPPORT_CXX
+	#include <cstddef>
+	#define cross_support_nullptr  NULL
+#elif CROSS_SUPPORT_C23
+	#define cross_support_nullptr  nullptr
+#else
+	#include <stddef.h>
+	#define cross_support_nullptr  NULL
+#endif
+
 // === attributes =================================================================================================== //
 
 #if (defined(cross_support_noreturn) && !CROSS_SUPPORT_CXX11 && !CROSS_SUPPORT_C23 && CROSS_SUPPORT_C11)
@@ -100,18 +114,18 @@
 
 // === UB optimization ============================================================================================== //
 
-#if CROSS_SUPPORT_C23
-	#include <stddef.h>
-	#define cross_support_unreachable()  unreachable()
-#elif CROSS_SUPPORT_CXX23
+#if CROSS_SUPPORT_CXX23
 	#include <utility>
 	#define cross_support_unreachable()  ::std::unreachable()
+#elif CROSS_SUPPORT_C23
+	#include <stddef.h>
+	#define cross_support_unreachable()  unreachable()
 #elif (CROSS_SUPPORT_GCC_LEAST(4,5) || CROSS_SUPPORT_CLANG)
 	#define cross_support_unreachable()  __builtin_unreachable()
 #elif CROSS_SUPPORT_MSVC
 	#define cross_support_unreachable()  __assume(0)
 #else
-	#if (__cplusplus + 0)
+	#if CROSS_SUPPORT_CXX
 		#include <cassert>
 	#else
 		#include <assert.h>
@@ -123,25 +137,16 @@
 
 // === branch optimization ========================================================================================== //
 
-#if CROSS_SUPPORT_CXX20
-	#define cross_support_if_likely(condition)    if(condition) [[likely]]
-	#define cross_support_if_unlikely(condition)  if(condition) [[unlikely]]
-#elif (CROSS_SUPPORT_GCC_LEAST(3,0) || CROSS_SUPPORT_CLANG)
-	#if (__cplusplus + 0)
-		#define cross_support_if_likely(condition)    if(__builtin_expect(static_cast<long>(static_cast<bool>(condition)), static_cast<long>(true)))
-		#define cross_support_if_unlikely(condition)  if(__builtin_expect(static_cast<long>(static_cast<bool>(condition)), static_cast<long>(false)))
-	#elif CROSS_SUPPORT_C99
-		#include <stdbool.h>
+#if (defined(cross_support_if_likely) && !CROSS_SUPPORT_CXX20 && (CROSS_SUPPORT_GCC_LEAST(3,0) || CROSS_SUPPORT_CLANG))
+	#include <stdbool.h>
+	#undef  cross_support_if_likely
+	#define cross_support_if_likely(condition)    if(__builtin_expect((long)(bool)(condition), (long)(true)))
+#endif
 
-		#define cross_support_if_likely(condition)    if(__builtin_expect((long)(bool)(condition), (long)(true)))
-		#define cross_support_if_unlikely(condition)  if(__builtin_expect((long)(bool)(condition), (long)(false)))
-	#else
-		#define cross_support_if_likely(condition)    if(__builtin_expect((long)!!(condition), 1L))
-		#define cross_support_if_unlikely(condition)  if(__builtin_expect((long)!!(condition), 0L))
-	#endif
-#else
-	#define cross_support_if_likely(condition)    if(condition)
-	#define cross_support_if_unlikely(condition)  if(condition)
+#if (defined(cross_support_if_unlikely) && !CROSS_SUPPORT_CXX20 && (CROSS_SUPPORT_GCC_LEAST(3,0) || CROSS_SUPPORT_CLANG))
+	#include <stdbool.h>
+	#undef  cross_support_if_unlikely
+	#define cross_support_if_unlikely(condition)  if(__builtin_expect((long)(bool)(condition), (long)(false)))
 #endif
 
 #endif /* CROSS_SUPPORT_MISC_H */

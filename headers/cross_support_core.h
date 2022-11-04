@@ -37,6 +37,7 @@
 #define CROSS_SUPPORT_C18    ((__STDC_VERSION__ + 0) >= 201710L)
 #define CROSS_SUPPORT_C23    ((__STDC_VERSION__ + 0) >= 202300L) // unofficial
 
+#define CROSS_SUPPORT_CXX     (__cplusplus      + 0)
 #define CROSS_SUPPORT_CXX98  ((__cplusplus      + 0) >= 199711L)
 #define CROSS_SUPPORT_CXX11  ((__cplusplus      + 0) >= 201103L)
 #define CROSS_SUPPORT_CXX17  ((__cplusplus      + 0) >= 201703L)
@@ -75,19 +76,22 @@
 #endif
 
 #if CROSS_SUPPORT_CXX17
-	#define cross_support_constexpr  constexpr
+	#define cross_support_constexpr_func  constexpr
 #elif CROSS_SUPPORT_C99
-	#define cross_support_constexpr  static inline
+	#define cross_support_constexpr_func  static inline
 #else
-	#define cross_support_constexpr  static
+	#define cross_support_constexpr_func  static
 #endif
+/**
+ * Deprecated. Use `cross_support_constexpr_func` instead.
+ */
+#define cross_support_constexpr  cross_support_constexpr_func
 
 // === attributes =================================================================================================== //
 
 #if (CROSS_SUPPORT_GCC_LEAST(2,5) || CROSS_SUPPORT_CLANG)
 	/**
-	 * Use this instead of `cross_support_attr_pure` unless the function takes a
-	 * pointer or reference.
+	 * Use this instead of `cross_support_attr_pure` unless the function takes a pointer or reference.
 	 */
 	#define cross_support_attr_const  __attribute__((__const__))
 #else
@@ -96,8 +100,7 @@
 
 #if (CROSS_SUPPORT_GCC_LEAST(2,96) || CROSS_SUPPORT_CLANG)
 	/**
-	 * Only use this instead of `cross_support_attr_const` when a function takes
-	 * a pointer or reference.
+	 * Only use this instead of `cross_support_attr_const` when a function takes a pointer or reference.
 	 */
 	#define cross_support_attr_pure  __attribute__((__pure__))
 #else
@@ -155,6 +158,30 @@
 #else
 	#define cross_support_attr_hot
 	#define cross_support_attr_cold
+#endif
+
+// === branch optimization ========================================================================================== //
+
+#if CROSS_SUPPORT_CXX20
+	#define cross_support_if_likely(condition)    if(condition) [[likely]]
+	#define cross_support_if_unlikely(condition)  if(condition) [[unlikely]]
+#elif (CROSS_SUPPORT_GCC_LEAST(3,0) || CROSS_SUPPORT_CLANG)
+	#if CROSS_SUPPORT_CXX
+		#define cross_support_if_likely(condition)    if(__builtin_expect(static_cast<long>(static_cast<bool>(condition)), static_cast<long>(true)))
+		#define cross_support_if_unlikely(condition)  if(__builtin_expect(static_cast<long>(static_cast<bool>(condition)), static_cast<long>(false)))
+	#elif CROSS_SUPPORT_C23
+		#define cross_support_if_likely(condition)    if(__builtin_expect((long)(bool)(condition), (long)(true)))
+		#define cross_support_if_unlikely(condition)  if(__builtin_expect((long)(bool)(condition), (long)(false)))
+	#elif CROSS_SUPPORT_C99
+		#define cross_support_if_likely(condition)    if(__builtin_expect((long)(_Bool)(condition), 1L))
+		#define cross_support_if_unlikely(condition)  if(__builtin_expect((long)(_Bool)(condition), 0L))
+	#else
+		#define cross_support_if_likely(condition)    if(__builtin_expect((long)!!(condition), 1L))
+		#define cross_support_if_unlikely(condition)  if(__builtin_expect((long)!!(condition), 0L))
+	#endif
+#else
+	#define cross_support_if_likely(condition)    if(condition)
+	#define cross_support_if_unlikely(condition)  if(condition)
 #endif
 
 #endif /* CROSS_SUPPORT_CORE_H */
