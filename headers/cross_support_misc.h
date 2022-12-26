@@ -137,13 +137,25 @@
 
 // === branch optimization ========================================================================================== //
 
-#if (defined(cross_support_if_likely) && !CROSS_SUPPORT_CXX20 && (CROSS_SUPPORT_GCC_LEAST(3,0) || CROSS_SUPPORT_CLANG))
+#if (defined(cross_support_if_likely) && \
+     !CROSS_SUPPORT_CXX20 && \
+     (CROSS_SUPPORT_GCC_LEAST(3,0) || CROSS_SUPPORT_CLANG) && \
+     !CROSS_SUPPORT_CXX && \
+     !CROSS_SUPPORT_C23 && \
+     CROSS_SUPPORT_C99)
+
 	#include <stdbool.h>
 	#undef  cross_support_if_likely
 	#define cross_support_if_likely(condition)    if(__builtin_expect((long)(bool)(condition), (long)(true)))
 #endif
 
-#if (defined(cross_support_if_unlikely) && !CROSS_SUPPORT_CXX20 && (CROSS_SUPPORT_GCC_LEAST(3,0) || CROSS_SUPPORT_CLANG))
+#if (defined(cross_support_if_unlikely) && \
+     !CROSS_SUPPORT_CXX20 && \
+     (CROSS_SUPPORT_GCC_LEAST(3,0) || CROSS_SUPPORT_CLANG) && \
+     !CROSS_SUPPORT_CXX && \
+     !CROSS_SUPPORT_C23 && \
+     CROSS_SUPPORT_C99)
+
 	#include <stdbool.h>
 	#undef  cross_support_if_unlikely
 	#define cross_support_if_unlikely(condition)  if(__builtin_expect((long)(bool)(condition), (long)(false)))
