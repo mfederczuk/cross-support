@@ -51,7 +51,14 @@ means that the implementation of this macro may have required a header to be inc
 
 * `CROSS_SUPPORT_LINUX` — truthy if the target system is **Linux**-based
 
+* `CROSS_SUPPORT_BSD` — truthy if the target system is **BSD**-based
+
+* `CROSS_SUPPORT_MACOS` — truthy if the target system is **Mac OS**
+
 * `CROSS_SUPPORT_WINDOWS` — truthy if the target system is **Windows**
+
+* `CROSS_SUPPORT_UNIX_LIKE` — truthy if the target system is Unix-like. If `CROSS_SUPPORT_LINUX`, `CROSS_SUPPORT_BSD`
+  or `CROSS_SUPPORT_MACOS` are truthy, then this macro is also truthy.
 
 ### Compilers ###
 
@@ -163,6 +170,10 @@ means that the implementation of this macro may have required a header to be inc
 
 [cppreference.com: likely, unlikely]: <https://en.cppreference.com/w/cpp/language/attributes/likely> "C++ attribute: likely, unlikely (since C++20) - cppreference.com"
 
+### Other ###
+
+* `CROSS_SUPPORT_HAS_INCLUDE_AVAILABLE` — truthy if preprocessor operator `__has_include` is supported
+
 ## `cross_support_misc.h` ##
 
 ### Kernels & Operating Systems ###
@@ -170,6 +181,15 @@ means that the implementation of this macro may have required a header to be inc
 * `CROSS_SUPPORT_LINUX_LEAST(major, patchlevel, sublevel)` — Truthy if the target system is **Linux**-based,
   version `major.patchlevel.sublevel` or greater.  
   This macro may include the header `<linux/version.h>`
+
+* `CROSS_SUPPORT_POSIX` — Truthy if the target system is generally **POSIX** compliant.  
+  This macro may include the header `<unistd.h>`
+
+* `CROSS_SUPPORT_POSIX_2001` — Truthy if the target system is **POSIX.1-2001** compliant.  
+  This macro may include the header `<unistd.h>`
+
+* `CROSS_SUPPORT_POSIX_2008` — Truthy if the target system is **POSIX.1-2001/2017** compliant.  
+  This macro may include the header `<unistd.h>`
 
 ### Libraries ###
 
@@ -191,7 +211,7 @@ means that the implementation of this macro may have required a header to be inc
 
 ### UB Optimization ###
 
-* `cross_support_unreachable()` — Expands Attempts to invoke undefined behavior.  
+* `cross_support_unreachable()` — Expands to an expression that attempts to invoke undefined behavior.  
   This macro may include the headers `<utility>`, `<stddef.h>`, `<cassert>` or `<assert.h>`
 
 ### Branch Optimization ###
@@ -201,3 +221,15 @@ means that the implementation of this macro may have required a header to be inc
 
 * `cross_support_if_unlikely(condition)` — This macro is changed to use `bool` instead of `_Bool`.  
   This macro may include the header `<stdbool.h>`
+
+### Other ###
+
+* `cross_support_static_assert(expr, msg)` — Expands to a static assertion with a custom message. Note that in contrast
+  to normal C or C++ static assertions, this one cannot be used outside of functions because if the language standard
+  does not support static assertions, the regular `assert` is used as a fallback.  
+  This macro may include the headers `<cassert>` or `<assert.h>`
+
+* `cross_support_static_assert_nomsg(expr)` — Expands to a static assertion with a default message of
+  `"Static assertion failed"`. Refer to `cross_support_static_assert` as to why this macro cannot be used outside of
+  functions.  
+  This macro may include the headers `<cassert>` or `<assert.h>`

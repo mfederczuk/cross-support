@@ -47,9 +47,38 @@
 
 // === kernels / operating systems ================================================================================== //
 
-#define CROSS_SUPPORT_LINUX    ((__linux__ + 0) || (linux + 0) || (__linux + 0))
+#define CROSS_SUPPORT_LINUX  ((__linux__ + 0) || (linux + 0) || (__linux + 0))
 
-#define CROSS_SUPPORT_WINDOWS  ((_WIN64 + 0) || (_WIN32 + 0) || (_WIN16 + 0))
+#if ((BSD + 0) || \
+     (__FreeBSD__ + 0)      || defined(__FreeBSD_kernel__) || (__FreeBSD_version + 0) || \
+     defined(__NetBSD__)    || (__NetBSD_Version__ + 0) || \
+     defined(__OpenBSD__)   || \
+     defined(__bsdi__)      || \
+     defined(__DragonFly__) || \
+     defined(_SYSTYPE_BSD))
+
+	#define CROSS_SUPPORT_BSD  1
+#else
+	#define CROSS_SUPPORT_BSD  0
+#endif
+
+#if (defined(macintosh) || defined(Macintosh) || (defined(__APPLE__) && defined(__MACH__)))
+	#define CROSS_SUPPORT_MACOS  1
+#else
+	#define CROSS_SUPPORT_MACOS  0
+#endif
+
+#if (defined(_WIN64) || defined(_WIN32) || defined(_WIN16))
+	#define CROSS_SUPPORT_WINDOWS  1
+#else
+	#define CROSS_SUPPORT_WINDOWS  0
+#endif
+
+
+#define CROSS_SUPPORT_UNIX_LIKE  ((__unix__ + 0) || (unix + 0) || (__unix + 0) || \
+                                  CROSS_SUPPORT_LINUX || \
+                                  CROSS_SUPPORT_BSD || \
+                                  CROSS_SUPPORT_MACOS)
 
 // === compilers ==================================================================================================== //
 
@@ -182,6 +211,14 @@
 #else
 	#define cross_support_if_likely(condition)    if(condition)
 	#define cross_support_if_unlikely(condition)  if(condition)
+#endif
+
+// === other ======================================================================================================== //
+
+#if (defined(__has_include) || CROSS_SUPPORT_CXX17)
+	#define CROSS_SUPPORT_HAS_INCLUDE_AVAILABLE  1
+#else
+	#define CROSS_SUPPORT_HAS_INCLUDE_AVAILABLE  0
 #endif
 
 #endif /* CROSS_SUPPORT_CORE_H */

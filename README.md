@@ -47,6 +47,22 @@ Which macros are defined, and how to use them, is documented in [`Macros.md`](Ma
 
 Simply download the header files from this repository and place them into your project.
 
+With `wget`:
+
+```sh
+wget 'https://github.com/mfederczuk/cross-support/raw/v1.1.0/headers/cross_support_core.h' &&
+wget 'https://github.com/mfederczuk/cross-support/raw/v1.1.0/headers/cross_support_misc.h'
+```
+
+... or with `curl`:
+
+<!-- markdownlint-disable line-length -->
+```sh
+curl -Lo 'cross_support_core.h' 'https://github.com/mfederczuk/cross-support/raw/v1.1.0/headers/cross_support_core.h' &&
+curl -Lo 'cross_support_misc.h' 'https://github.com/mfederczuk/cross-support/raw/v1.1.0/headers/cross_support_misc.h'
+```
+<!-- markdownlint-enable line-length -->
+
 ## Contributing ##
 
 Read through the [Contribution Guidelines](CONTRIBUTING.md) if you want to contribute to this project.

@@ -13,8 +13,21 @@ and this project adheres to [**Semantic Versioning v2.0.0**](https://semver.org/
 
 ## Unreleased ##
 
+### Added ###
+
+* Macro `CROSS_SUPPORT_BSD` evaluates to a nonzero value if the target system is **BSD**-based
+* Macro `CROSS_SUPPORT_MACOS` evaluates to a nonzero value if the target system is **Mac OS**
+* Macro `CROSS_SUPPORT_UNIX_LIKE` evaluates to a nonzero value if the target system is Unix-like
+* Macro `CROSS_SUPPORT_HAS_INCLUDE_AVAILABLE` evaluates to a nonzero value if the preprocessor operator `__has_include`
+  is supported
+* Macros `CROSS_SUPPORT_POSIX`, `CROSS_SUPPORT_POSIX_2001` and `CROSS_SUPPORT_POSIX_2008` evaluate to nonzero values if
+  the target system is generally **POSIX**-, **POSIX.1-2001**- and **POSIX.1-2008/2017** compliant, respectively
+* Macro `cross_support_static_assert(expr, msg)` and `cross_support_static_assert_nomsg(expr)` which expand to
+  static assertions
+
 ### Fixed ####
 
+* Fixed the `CROSS_SUPPORT_WINDOWS` macro
 * The condition to redefine `cross_support_if_likely` and `cross_support_if_unlikely` in the `cross_support_core.h`
   header was fixed
 

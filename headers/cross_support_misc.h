@@ -41,9 +41,22 @@
 	#define CROSS_SUPPORT_LINUX_LEAST(major, patchlevel, sublevel)  0
 #endif
 
+
+#if CROSS_SUPPORT_HAS_INCLUDE_AVAILABLE
+	#if __has_include(<unistd.h>)
+		#include <unistd.h>
+	#endif
+#elif CROSS_SUPPORT_UNIX_LIKE
+	#include <unistd.h>
+#endif
+
+#define CROSS_SUPPORT_POSIX        (_POSIX_VERSION + 0)
+#define CROSS_SUPPORT_POSIX_2001  ((_POSIX_VERSION + 0) >= 200112L)
+#define CROSS_SUPPORT_POSIX_2008  ((_POSIX_VERSION + 0) >= 200809L)
+
 // === libraries ==================================================================================================== //
 
-#if defined(__has_include)
+#if CROSS_SUPPORT_HAS_INCLUDE_AVAILABLE
 	#if __has_include(<features.h>)
 		#include <features.h>
 	#endif
@@ -159,6 +172,44 @@
 	#include <stdbool.h>
 	#undef  cross_support_if_unlikely
 	#define cross_support_if_unlikely(condition)  if(__builtin_expect((long)(bool)(condition), (long)(false)))
+#endif
+
+// === other ======================================================================================================== //
+
+#if CROSS_SUPPORT_CXX11
+	#define cross_support_static_assert(expr, msg)  static_assert(expr, msg)
+#elif CROSS_SUPPORT_C11
+	#include <assert.h>
+
+	#define cross_support_static_assert(expr, msg)  static_assert(expr, msg)
+#else
+	#if CROSS_SUPPORT_CXX
+		#include <cassert>
+	#else
+		#include <assert.h>
+	#endif
+
+	#define cross_support_static_assert(expr, msg)  assert(((void)(msg), (expr)))
+#endif
+
+#if CROSS_SUPPORT_CXX17
+	#define cross_support_static_assert_nomsg(expr)  static_assert(expr)
+#elif CROSS_SUPPORT_CXX11
+	#define cross_support_static_assert_nomsg(expr)  static_assert(expr, "Static assertion failed")
+#elif CROSS_SUPPORT_C23
+	#define cross_support_static_assert_nomsg(expr)  static_assert(expr)
+#elif CROSS_SUPPORT_C11
+	#include <assert.h>
+
+	#define cross_support_static_assert_nomsg(expr)  static_assert(expr, "Static assertion failed")
+#else
+	#if CROSS_SUPPORT_CXX
+		#include <cassert>
+	#else
+		#include <assert.h>
+	#endif
+
+	#define cross_support_static_assert_nomsg(expr)  assert(expr)
 #endif
 
 #endif /* CROSS_SUPPORT_MISC_H */
