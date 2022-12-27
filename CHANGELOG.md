@@ -15,6 +15,7 @@ and this project adheres to [**Semantic Versioning v2.0.0**](https://semver.org/
 
 ### Fixed ####
 
+* Fixed the `CROSS_SUPPORT_WINDOWS` macro
 * The condition to redefine `cross_support_if_likely` and `cross_support_if_unlikely` in the `cross_support_core.h`
   header was fixed
 

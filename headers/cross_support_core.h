@@ -47,9 +47,13 @@
 
 // === kernels / operating systems ================================================================================== //
 
-#define CROSS_SUPPORT_LINUX    ((__linux__ + 0) || (linux + 0) || (__linux + 0))
+#define CROSS_SUPPORT_LINUX  ((__linux__ + 0) || (linux + 0) || (__linux + 0))
 
-#define CROSS_SUPPORT_WINDOWS  ((_WIN64 + 0) || (_WIN32 + 0) || (_WIN16 + 0))
+#if (defined(_WIN64) || defined(_WIN32) || defined(_WIN16))
+	#define CROSS_SUPPORT_WINDOWS  1
+#else
+	#define CROSS_SUPPORT_WINDOWS  0
+#endif
 
 // === compilers ==================================================================================================== //
 
