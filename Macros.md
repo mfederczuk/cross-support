@@ -57,6 +57,9 @@ means that the implementation of this macro may have required a header to be inc
 
 * `CROSS_SUPPORT_WINDOWS` — truthy if the target system is **Windows**
 
+* `CROSS_SUPPORT_UNIX_LIKE` — truthy if the target system is Unix-like. If `CROSS_SUPPORT_LINUX`, `CROSS_SUPPORT_BSD`
+  or `CROSS_SUPPORT_MACOS` are truthy, then this macro is also truthy.
+
 ### Compilers ###
 
 * `CROSS_SUPPORT_GCC_LEAST(major, minor)` — truthy if the current compiler used is compatible with **GCC** version

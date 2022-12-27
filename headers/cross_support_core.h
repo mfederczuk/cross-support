@@ -74,6 +74,12 @@
 	#define CROSS_SUPPORT_WINDOWS  0
 #endif
 
+
+#define CROSS_SUPPORT_UNIX_LIKE  ((__unix__ + 0) || (unix + 0) || (__unix + 0) || \
+                                  CROSS_SUPPORT_LINUX || \
+                                  CROSS_SUPPORT_BSD || \
+                                  CROSS_SUPPORT_MACOS)
+
 // === compilers ==================================================================================================== //
 
 #define CROSS_SUPPORT_GCC_LEAST(major, minor) \
