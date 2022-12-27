@@ -211,7 +211,7 @@ means that the implementation of this macro may have required a header to be inc
 
 ### UB Optimization ###
 
-* `cross_support_unreachable()` — Expands Attempts to invoke undefined behavior.  
+* `cross_support_unreachable()` — Expands to an expression that attempts to invoke undefined behavior.  
   This macro may include the headers `<utility>`, `<stddef.h>`, `<cassert>` or `<assert.h>`
 
 ### Branch Optimization ###
