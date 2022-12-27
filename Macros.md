@@ -221,3 +221,15 @@ means that the implementation of this macro may have required a header to be inc
 
 * `cross_support_if_unlikely(condition)` — This macro is changed to use `bool` instead of `_Bool`.  
   This macro may include the header `<stdbool.h>`
+
+### Other ###
+
+* `cross_support_static_assert(expr, msg)` — Expands to a static assertion with a custom message. Note that in contrast
+  to normal C or C++ static assertions, this one cannot be used outside of functions because if the language standard
+  does not support static assertions, the regular `assert` is used as a fallback.  
+  This macro may include the headers `<cassert>` or `<assert.h>`
+
+* `cross_support_static_assert_nomsg(expr)` — Expands to a static assertion with a default message of
+  `"Static assertion failed"`. Refer to `cross_support_static_assert` as to why this macro cannot be used outside of
+  functions.  
+  This macro may include the headers `<cassert>` or `<assert.h>`
