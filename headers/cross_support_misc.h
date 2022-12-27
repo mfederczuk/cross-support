@@ -41,6 +41,19 @@
 	#define CROSS_SUPPORT_LINUX_LEAST(major, patchlevel, sublevel)  0
 #endif
 
+
+#if CROSS_SUPPORT_HAS_INCLUDE_AVAILABLE
+	#if __has_include(<unistd.h>)
+		#include <unistd.h>
+	#endif
+#elif CROSS_SUPPORT_UNIX_LIKE
+	#include <unistd.h>
+#endif
+
+#define CROSS_SUPPORT_POSIX        (_POSIX_VERSION + 0)
+#define CROSS_SUPPORT_POSIX_2001  ((_POSIX_VERSION + 0) >= 200112L)
+#define CROSS_SUPPORT_POSIX_2008  ((_POSIX_VERSION + 0) >= 200809L)
+
 // === libraries ==================================================================================================== //
 
 #if CROSS_SUPPORT_HAS_INCLUDE_AVAILABLE

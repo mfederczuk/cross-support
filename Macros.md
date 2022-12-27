@@ -182,6 +182,15 @@ means that the implementation of this macro may have required a header to be inc
   version `major.patchlevel.sublevel` or greater.  
   This macro may include the header `<linux/version.h>`
 
+* `CROSS_SUPPORT_POSIX` — Truthy if the target system is generally **POSIX** compliant.  
+  This macro may include the header `<unistd.h>`
+
+* `CROSS_SUPPORT_POSIX_2001` — Truthy if the target system is **POSIX.1-2001** compliant.  
+  This macro may include the header `<unistd.h>`
+
+* `CROSS_SUPPORT_POSIX_2008` — Truthy if the target system is **POSIX.1-2001/2017** compliant.  
+  This macro may include the header `<unistd.h>`
+
 ### Libraries ###
 
 * `CROSS_SUPPORT_GLIBC_LEAST(major, minor)` — Truthy if the **glibc** library is used, version `major.minor` or
