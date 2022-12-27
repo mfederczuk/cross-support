@@ -53,6 +53,8 @@ means that the implementation of this macro may have required a header to be inc
 
 * `CROSS_SUPPORT_BSD` — truthy if the target system is **BSD**-based
 
+* `CROSS_SUPPORT_MACOS` — truthy if the target system is **Mac OS**
+
 * `CROSS_SUPPORT_WINDOWS` — truthy if the target system is **Windows**
 
 ### Compilers ###

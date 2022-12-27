@@ -16,6 +16,7 @@ and this project adheres to [**Semantic Versioning v2.0.0**](https://semver.org/
 ### Added ###
 
 * Macro `CROSS_SUPPORT_BSD` evaluates to a nonzero value if the target system is **BSD**-based
+* Macro `CROSS_SUPPORT_MACOS` evaluates to a nonzero value if the target system is **Mac OS**
 
 ### Fixed ####
 

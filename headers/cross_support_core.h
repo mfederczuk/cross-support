@@ -62,6 +62,12 @@
 	#define CROSS_SUPPORT_BSD  0
 #endif
 
+#if (defined(macintosh) || defined(Macintosh) || (defined(__APPLE__) && defined(__MACH__)))
+	#define CROSS_SUPPORT_MACOS  1
+#else
+	#define CROSS_SUPPORT_MACOS  0
+#endif
+
 #if (defined(_WIN64) || defined(_WIN32) || defined(_WIN16))
 	#define CROSS_SUPPORT_WINDOWS  1
 #else
