@@ -170,6 +170,10 @@ means that the implementation of this macro may have required a header to be inc
 
 [cppreference.com: likely, unlikely]: <https://en.cppreference.com/w/cpp/language/attributes/likely> "C++ attribute: likely, unlikely (since C++20) - cppreference.com"
 
+### Other ###
+
+* `CROSS_SUPPORT_HAS_INCLUDE_AVAILABLE` — truthy if preprocessor operator `__has_include` is supported
+
 ## `cross_support_misc.h` ##
 
 ### Kernels & Operating Systems ###

@@ -213,4 +213,12 @@
 	#define cross_support_if_unlikely(condition)  if(condition)
 #endif
 
+// === other ======================================================================================================== //
+
+#if (defined(__has_include) || CROSS_SUPPORT_CXX17)
+	#define CROSS_SUPPORT_HAS_INCLUDE_AVAILABLE  1
+#else
+	#define CROSS_SUPPORT_HAS_INCLUDE_AVAILABLE  0
+#endif
+
 #endif /* CROSS_SUPPORT_CORE_H */

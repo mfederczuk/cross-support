@@ -43,7 +43,7 @@
 
 // === libraries ==================================================================================================== //
 
-#if defined(__has_include)
+#if CROSS_SUPPORT_HAS_INCLUDE_AVAILABLE
 	#if __has_include(<features.h>)
 		#include <features.h>
 	#endif
