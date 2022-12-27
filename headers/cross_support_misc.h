@@ -21,7 +21,7 @@
  *  limitations under the License.
  */
 
-// Version 1.1.0 (https://github.com/mfederczuk/cross-support)
+// Version 1.2.0 (https://github.com/mfederczuk/cross-support)
 
 #ifndef CROSS_SUPPORT_MISC_H
 #define CROSS_SUPPORT_MISC_H 1
