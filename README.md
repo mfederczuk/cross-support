@@ -5,9 +5,9 @@
 
 # C & C++ Cross-Support Headers #
 
-[version_shield]: https://img.shields.io/badge/version-1.1.0-informational.svg
-[release_page]: https://github.com/mfederczuk/cross-support/releases/tag/v1.1.0 "Release v1.1.0"
-[![version: 1.1.0][version_shield]][release_page]
+[version_shield]: https://img.shields.io/badge/version-1.2.0-informational.svg
+[release_page]: https://github.com/mfederczuk/cross-support/releases/tag/v1.2.0 "Release v1.2.0"
+[![version: 1.2.0][version_shield]][release_page]
 [![Changelog](https://img.shields.io/badge/-Changelog-informational.svg)](CHANGELOG.md "Changelog")
 
 ## About ##
@@ -50,16 +50,16 @@ Simply download the header files from this repository and place them into your p
 With `wget`:
 
 ```sh
-wget 'https://github.com/mfederczuk/cross-support/raw/v1.1.0/headers/cross_support_core.h' &&
-wget 'https://github.com/mfederczuk/cross-support/raw/v1.1.0/headers/cross_support_misc.h'
+wget 'https://github.com/mfederczuk/cross-support/raw/v1.2.0/headers/cross_support_core.h' &&
+wget 'https://github.com/mfederczuk/cross-support/raw/v1.2.0/headers/cross_support_misc.h'
 ```
 
 ... or with `curl`:
 
 <!-- markdownlint-disable line-length -->
 ```sh
-curl -Lo 'cross_support_core.h' 'https://github.com/mfederczuk/cross-support/raw/v1.1.0/headers/cross_support_core.h' &&
-curl -Lo 'cross_support_misc.h' 'https://github.com/mfederczuk/cross-support/raw/v1.1.0/headers/cross_support_misc.h'
+curl -Lo 'cross_support_core.h' 'https://github.com/mfederczuk/cross-support/raw/v1.2.0/headers/cross_support_core.h' &&
+curl -Lo 'cross_support_misc.h' 'https://github.com/mfederczuk/cross-support/raw/v1.2.0/headers/cross_support_misc.h'
 ```
 <!-- markdownlint-enable line-length -->
 
