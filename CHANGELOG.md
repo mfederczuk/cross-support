@@ -13,6 +13,10 @@ and this project adheres to [**Semantic Versioning v2.0.0**](https://semver.org/
 
 ## Unreleased ##
 
+### Added ###
+
+* Macro `CROSS_SUPPORT_BSD` evaluates to a nonzero value if the target system is **BSD**-based
+
 ### Fixed ####
 
 * Fixed the `CROSS_SUPPORT_WINDOWS` macro

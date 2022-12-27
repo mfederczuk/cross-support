@@ -49,6 +49,19 @@
 
 #define CROSS_SUPPORT_LINUX  ((__linux__ + 0) || (linux + 0) || (__linux + 0))
 
+#if ((BSD + 0) || \
+     (__FreeBSD__ + 0)      || defined(__FreeBSD_kernel__) || (__FreeBSD_version + 0) || \
+     defined(__NetBSD__)    || (__NetBSD_Version__ + 0) || \
+     defined(__OpenBSD__)   || \
+     defined(__bsdi__)      || \
+     defined(__DragonFly__) || \
+     defined(_SYSTYPE_BSD))
+
+	#define CROSS_SUPPORT_BSD  1
+#else
+	#define CROSS_SUPPORT_BSD  0
+#endif
+
 #if (defined(_WIN64) || defined(_WIN32) || defined(_WIN16))
 	#define CROSS_SUPPORT_WINDOWS  1
 #else
